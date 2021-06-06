@@ -5,10 +5,8 @@
 enum TokenType {
     TOK_EOF,
 
-    /* Anything in all caps */
     TOK_NONTERM,
 
-    /* Anything in all lowercase */
     TOK_TERM,
 
     /* ::= */

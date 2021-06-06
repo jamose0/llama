@@ -1,6 +1,5 @@
 /*
- *  Nonterminals are recognized by all caps
- *  Terminals should be recognized by lowercases
+ *  The user must specify a 'term' variable at the beginning of an input file
  */
 
 #include "scanner.h"
