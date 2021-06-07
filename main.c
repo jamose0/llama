@@ -14,5 +14,7 @@ int main(int argc, char *argv[])
     enum TokenType t = scanNextToken();
     printf("%d\n", t);
     printf("llama parser generator by JM!\n");
+
+    initScanner(fopen("test", "r"));
     return 0;
 }
