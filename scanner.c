@@ -10,6 +10,9 @@
 
 struct Scanner {
     FILE *file;
+
+    /* offset from beginning of last token */
+    int offset;
 };
 
 struct Scanner scanner;
@@ -27,6 +30,15 @@ void initScanner(FILE *file)
 /* Scans the next token on input */
 enum TokenType scanNextToken()
 {
+    int c;
+
+    /* Skip whitespace. After loop, c should have the first char that is not
+     * whitespace */
+    do {
+        c = fgetc(scanner.file);
+    } while (c == ' ' || c == '\n' || c == '\t');
+
+    printf("%c\n", c);
     // Just a placeholder for now
     return TOK_EOF;
 }
