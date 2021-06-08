@@ -7,6 +7,8 @@
 
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
+#include <ctype.h>
 
 struct Scanner {
     FILE *file;
@@ -25,6 +27,22 @@ void initScanner(FILE *file)
     }
 
     scanner.file = file;
+    scanner.offset = 0;
+}
+
+static int matchNext(const char *s)
+{
+    for (scanner.offset = 0; scanner.offset < strlen(s); scanner.offset++) {
+        if (s[scanner.offset] != fgetc(scanner.file))
+            return 0;
+    }
+
+    if (isalpha(fgetc(scanner.file))) {
+        scanner.offset++;
+        return 0;
+    } else {
+        return 1;
+    }
 }
 
 /* Scans the next token on input */
@@ -39,6 +57,17 @@ enum TokenType scanNextToken()
     } while (c == ' ' || c == '\n' || c == '\t');
 
     printf("%c\n", c);
+
+    switch (c) {
+        case 't':
+            if (matchNext("erm")) {
+                printf("matched term\n");
+                return TOK_K_TERM;
+            }
+            break;
+        default:
+            printf("matched none\n");
+    }
     // Just a placeholder for now
     return TOK_EOF;
 }
