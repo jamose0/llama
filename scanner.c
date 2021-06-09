@@ -32,8 +32,9 @@ void initScanner(FILE *file)
 
 static int matchNext(const char *s)
 {
-    for (scanner.offset = 0; scanner.offset < strlen(s); scanner.offset++) {
-        if (s[scanner.offset] != fgetc(scanner.file))
+    int i;
+    for (i = 0; i < strlen(s); i++) {
+        if (s[scanner.offset++] != fgetc(scanner.file))
             return 0;
     }
 
@@ -43,6 +44,17 @@ static int matchNext(const char *s)
     } else {
         return 1;
     }
+}
+
+static void resetToken()
+{
+    fseek(scanner.file, -(scanner.offset), SEEK_CUR);
+    scanner.offset = 0;
+}
+
+static enum TokenType matchName()
+{
+    return TOK_NAME;
 }
 
 /* Scans the next token on input */
@@ -55,6 +67,7 @@ enum TokenType scanNextToken()
     do {
         c = fgetc(scanner.file);
     } while (c == ' ' || c == '\n' || c == '\t');
+    scanner.offset++;
 
     printf("%c\n", c);
 
@@ -63,11 +76,16 @@ enum TokenType scanNextToken()
             if (matchNext("erm")) {
                 printf("matched term\n");
                 return TOK_K_TERM;
+            } else {
+                resetToken();
+                break;
             }
             break;
         default:
             printf("matched none\n");
     }
+
+    printf("%c\n", fgetc(scanner.file));
     // Just a placeholder for now
     return TOK_EOF;
 }
