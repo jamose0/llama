@@ -10,6 +10,8 @@
 #include <string.h>
 #include <ctype.h>
 
+char lltext[MAX_TOKEN_LENGTH];
+
 struct Scanner {
     FILE *file;
 
@@ -70,6 +72,7 @@ static enum TokenType matchName()
 enum TokenType scanNextToken()
 {
     int c;
+    scanner.offset = 0;
 
     /* Skip whitespace. After loop, c should have the first char that is not
      * whitespace */
@@ -84,6 +87,7 @@ enum TokenType scanNextToken()
         case 't':
             if (matchKw("term")) {
                 printf("matched term\n");
+                memcpy(lltext, "term\0", 5);
                 return TOK_K_TERM;
             } else {
                 resetToken();
@@ -93,6 +97,7 @@ enum TokenType scanNextToken()
         case ':':
             if (matchNext("::=")) {
                 printf("Matched '::='\n");
+                memcpy(lltext, "::=\0", 4);
                 return TOK_PRODUCTION;
             } else {
                 resetToken();

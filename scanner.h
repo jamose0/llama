@@ -5,6 +5,9 @@
 
 #include "tokentype.h"
 
+/* The maximum lenght (in chars) of a token */
+#define MAX_TOKEN_LENGTH 1000
+
 enum TokenType scanNextToken();
 
 void initScanner(FILE *file);

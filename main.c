@@ -9,12 +9,15 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+extern char lltext[];
+
 int main(int argc, char *argv[])
 {
     printf("llama parser generator by JM!\n");
 
     initScanner(fopen("test", "r"));
     enum TokenType t = scanNextToken();
+    printf("lltext = %s\n", lltext);
     printf("%d\n", t);
     return 0;
 }
