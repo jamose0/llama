@@ -91,7 +91,7 @@ enum TokenType scanNextToken()
             }
             break;
         case ':':
-            if (matchNext(":=")) {
+            if (matchNext("::=")) {
                 printf("Matched '::='\n");
                 return TOK_PRODUCTION;
             } else {
