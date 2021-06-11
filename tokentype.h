@@ -5,14 +5,10 @@
 enum TokenType {
     TOK_EOF = 0,
 
-    TOK_NONTERM,
-
     TOK_NAME,
 
     /* keyword */
     TOK_K_TERM,
-
-    TOK_TERM,
 
     /* ::= */
     TOK_PRODUCTION,
